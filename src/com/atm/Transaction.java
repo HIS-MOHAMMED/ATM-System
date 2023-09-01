@@ -1,56 +1,70 @@
 package com.atm;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.Date;
 
 public class Transaction {
-    private String transaction_id;
+    /*
+    The amount of this transaction
+     */
     private double amount;
-    private String timeStamp;
-    private Account account;
-    private Account destination_Account;
+    /*
+    The time and date of this transaction
+     */
+    private Date timeStamp;
+    /*
+    The memo for this transaction.
+     */
     private String memo;
-    private ArrayList<Transaction> transactions  = new ArrayList<>();
-    public Transaction(){}
-    public Transaction(double amount, String transaction_id, String memo) {
-        this.transaction_id = transaction_id ;
+    /*
+    The account in which the transaction was performad.
+     */
+    private Account account;
+
+    /**
+     * Create a new transaction
+     * @param amount the amount transacted
+     * @param inAccount the account the transaction belongs to
+     */
+    public Transaction(double amount,Account inAccount) {
         this.amount = amount;
+        this.account = inAccount;
+        this.timeStamp = new Date();
+        this.memo = "";
+    }
+
+    /**
+     * Create a new transaction
+     * @param amount the amount transacted
+     * @param memo   the memo for the transaction
+     * @param inAccount the account the transaction belongs to
+     */
+    public Transaction( double amount,String memo,Account inAccount) {
+        //call the two-org constructor first
+        this(amount,inAccount);
+
+        //get a memo
         this.memo = memo;
-        this.timeStamp = setTime();
     }
 
-    public Transaction( double amount,String transaction_id,Account destination_Account, String memo) {
-        this.transaction_id = transaction_id;
-        this.amount = amount;
-        this.memo = memo;
-        this.timeStamp = setTime();
-        this.destination_Account = destination_Account;
-    }
-    public String setTime(){
-        LocalDateTime currentDateTime  = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
-        return formattedDateTime;
+    /**
+     * Get the amount of the transaction
+     * @return the amount value
+     */
+    public double getAmount(){
+        return this.amount;
     }
 
-    public String getTransaction_id() {
-        return transaction_id;
-    }
-    public double getAmount() {
-        return amount;
-    }
-    public String getTimeStamp() {
-        return timeStamp;
-    }
+    /**
+     * Get the string summarizing the transaction
+     * @return  the summary string of transaction
+     */
+    public String getSummaryLine(){
 
-    public String getMemo() {
-        return memo;
-    }
-    public void setTransactions(Transaction t){
-        transactions.add(t);
-    }
-    public ArrayList<Transaction> getTransactions(){
-        return transactions;
+        if(this.amount >= 0){
+            return String.format("%s  :    $%.02f     :   %s",
+                    this.timeStamp.toString(),this.amount,this.memo);
+        }else{
+            return String.format("%s  :    $(%.02f)   :   %s",
+                    this.timeStamp.toString(),this.amount,this.memo);
+        }
     }
 }
