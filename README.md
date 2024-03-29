@@ -11,10 +11,10 @@ Welcome to the Simple ATM System project! This project implements a basic ATM sy
     Deposit: Users can deposit funds into their account.
     Transfer: Users can transfer funds to another account.
     Transaction History: Users can view their transaction history.
-
+    
 # Object-Oriented Design
-I learned and practice some object-oriented principles, including:
 
-    Encapsulation: Data and methods are encapsulated within classes to control access and ensure data integrity.
-    Abstraction: Complex details are hidden from the user, providing a simplified interface.
-    Polymorphism: Different types of accounts (e.g., savings, checking) share a common interface for transactions.
+I learned and practice some object-oriented principles, including:
+Encapsulation: Data and methods are encapsulated within classes to control access and ensure data integrity.
+Abstraction: Complex details are hidden from the user, providing a simplified interface. 
+Polymorphism: Different types of accounts (e.g., savings, checking) share a common interface for transactions.
